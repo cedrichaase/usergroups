@@ -47,7 +47,12 @@ minetest.register_chatcommand("usergroups_add", {
             return false, "No user specified"
         end
 
-        groups = {[group] = {[user]=true}}
+        if not groups[group] then
+            groups[group] = {}
+        end
+
+        groups[group][user] = true
+
         usergroups:save()
 
         return true, "User groups updated."
