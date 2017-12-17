@@ -63,7 +63,7 @@ minetest.register_chatcommand("groups_add", {
 
         usergroups:save()
 
-        return true, "User groups updated."
+        return true, "Users in "..group..": "..users_to_string(groups[group])
     end
 })
 
@@ -90,7 +90,7 @@ minetest.register_chatcommand("groups_remove", {
 
         usergroups:save()
 
-        return true, "User groups updated."
+        return true, "Users in "..group..": "..users_to_string(groups[group])
     end
 })
 
