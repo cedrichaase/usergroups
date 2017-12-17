@@ -6,6 +6,14 @@ usergroups.modpath = minetest.get_modpath("usergroups")
 
 filepath = minetest.get_worldpath().."/usergroups.dat"
 
+function users_to_string(users)
+    local str = ""
+    for name, v in pairs(users) do
+        str = str..name.." "
+    end
+    return str
+end
+
 function usergroups:save()
     datastr = minetest.serialize(groups)
 
