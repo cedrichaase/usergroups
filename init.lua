@@ -94,28 +94,9 @@ minetest.register_chatcommand("groups_remove", {
     end
 })
 
-minetest.register_chatcommand("groups_list_users", {
-    params = "<group>",
-    description = "List users that belong to a group",
-    privs = {["server"] = true},
-    func = function(name, param)
-        local group = param
-
-        if not group then
-            return false, "No group specified"
-        end
-
-        if not groups[group] then
-            return false, "Group "..group.."does not exist!"
-        end
-
-        return true, "Users in "..group..": "..indexes_to_string(groups[group])
-    end
-})
-
 minetest.register_chatcommand("groups_list", {
-    params = "",
-    description = "List available groups",
+    params = "[group]",
+    description = "List available groups, or users of a group",
     privs = {["server"] = true},
     func = function(name, param)
         local group = param
@@ -124,7 +105,15 @@ minetest.register_chatcommand("groups_list", {
             return false, "No groups available"
         end
 
-        return true, "Available groups: "..indexes_to_string(groups)
+        if not group or group == "" then
+            return true, "Available groups: "..indexes_to_string(groups)
+        end
+
+        if not groups[group] then
+            return false, "Group "..group.."does not exist!"
+        end
+
+        return true, "Users in "..group..": "..indexes_to_string(groups[group])
     end
 })
 
