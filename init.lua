@@ -17,6 +17,20 @@ function usergroups:save()
     file:close()
 end
 
+function usergroups:load()
+    local file, err = io.open(filepath, "r")
+    if err then
+        groups = groups or {}
+        return err
+    end
+
+    groups = minetest.deserialize(file:read("*a"))
+    if type(groups) ~= "table" then
+        groups = {}
+    end
+
+    file:close()
+end
 
 minetest.register_chatcommand("usergroups_add", {
     params = "<group> <user>",
