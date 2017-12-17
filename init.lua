@@ -66,3 +66,23 @@ minetest.register_chatcommand("groups_add", {
         return true, "User groups updated."
     end
 })
+
+
+minetest.register_chatcommand("groups_list_users", {
+    params = "<group>",
+    description = "List users that belong to a group",
+    privs = {["server"] = true},
+    func = function(name, param)
+        local group = param
+
+        if not group then
+            return false, "No group specified"
+        end
+
+        if not groups[group] then
+            return false, "Group "..group.."does not exist!"
+        end
+
+        return true, "Users in "..group..": "..users_to_string(groups[group])
+    end
+})
