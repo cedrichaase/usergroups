@@ -86,3 +86,5 @@ minetest.register_chatcommand("groups_list_users", {
         return true, "Users in "..group..": "..users_to_string(groups[group])
     end
 })
+
+usergroups:load()
