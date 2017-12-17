@@ -94,7 +94,6 @@ minetest.register_chatcommand("groups_remove", {
     end
 })
 
-
 minetest.register_chatcommand("groups_list_users", {
     params = "<group>",
     description = "List users that belong to a group",
@@ -111,6 +110,21 @@ minetest.register_chatcommand("groups_list_users", {
         end
 
         return true, "Users in "..group..": "..users_to_string(groups[group])
+    end
+})
+
+minetest.register_chatcommand("groups_list", {
+    params = "",
+    description = "List available groups",
+    privs = {["server"] = true},
+    func = function(name, param)
+        local group = param
+
+        if not groups then
+            return false, "No groups available"
+        end
+
+        return true, "Available groups: "..users_to_string(groups)
     end
 })
 
