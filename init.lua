@@ -67,6 +67,33 @@ minetest.register_chatcommand("groups_add", {
     end
 })
 
+minetest.register_chatcommand("groups_remove", {
+    params = "<group> <user>",
+    description = "Remove a user from a group",
+    privs = {["server"] = true},
+    func = function(name, param)
+        local group, user = param:match('^(%S+)%s(%S+)$')
+
+        if not group then
+            return false, "No group specified"
+        end
+
+        if not user then
+            return false, "No user specified"
+        end
+
+        if not groups[group] then
+            return false, "Group "..group.."does not exist!"
+        end
+
+        groups[group][user] = nil
+
+        usergroups:save()
+
+        return true, "User groups updated."
+    end
+})
+
 
 minetest.register_chatcommand("groups_list_users", {
     params = "<group>",
