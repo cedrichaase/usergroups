@@ -40,7 +40,7 @@ function usergroups:load()
     file:close()
 end
 
-minetest.register_chatcommand("usergroups_add", {
+minetest.register_chatcommand("groups_add", {
     params = "<group> <user>",
     description = "Add a user to a group",
     privs = {["server"] = true},
