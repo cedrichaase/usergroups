@@ -1,12 +1,10 @@
 usergroups = {}
 
-
 usergroups.modpath = minetest.get_modpath("usergroups")
 
+filepath = minetest.get_worldpath().."/usergroups.dat"
 
-filepath = minetest.get_worldpath().."/usergroups.dat" 
-
-function usermods:save()
+function usergroups:save()
     local data = {foo = "bar"}
     datastr = minetest.serialize(data)
 
@@ -18,4 +16,15 @@ function usermods:save()
     file:close()
 end
 
-usermods:save()
+minetest.register_chatcommand("usergroups_add", {
+    params = "<group> <user>",
+    description = "Add a user to a group",
+    privs = {["server"] = true},
+    func = function(name, param)
+
+
+        local group, user = param:match('^(%S)%s(%S)$')
+        usergroups = {[group] = {[user]=true}}
+        usergroups:save()
+    end
+})
