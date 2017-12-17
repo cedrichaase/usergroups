@@ -40,6 +40,42 @@ function usergroups:load()
     file:close()
 end
 
+function usergroups:get_users(group)
+  local users = {}
+
+  if not usergroups:group_exists(group) then
+    return {}
+  end
+
+  for name, _ in pairs(groups[group]) do
+      table.insert(users, name)
+  end
+
+  return users
+end
+
+function usergroups:group_exists(group)
+    if not groups then
+      return false
+    end
+
+    return (groups[group] ~= nil)
+end
+
+function usergroups:user_is_in_group(user, group)
+  if not usergroups:group_exists(group) then
+    return false
+  end
+
+  for name, _ in pairs(groups[group]) do
+    if name == user then
+      return true
+    end
+  end
+
+  return false
+end
+
 minetest.register_chatcommand("groups_add", {
     params = "<group> <user>",
     description = "Add a user to a group",
