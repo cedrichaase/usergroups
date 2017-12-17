@@ -1,12 +1,12 @@
 usergroups = {}
-groups = {}
 
+local groups = {}
 
 usergroups.modpath = minetest.get_modpath("usergroups")
 
 filepath = minetest.get_worldpath().."/usergroups.dat"
 
-function users_to_string(users)
+function indexes_to_string(users)
     local str = ""
     for name, v in pairs(users) do
         str = str..name.." "
@@ -63,7 +63,7 @@ minetest.register_chatcommand("groups_add", {
 
         usergroups:save()
 
-        return true, "Users in "..group..": "..users_to_string(groups[group])
+        return true, "Users in "..group..": "..indexes_to_string(groups[group])
     end
 })
 
@@ -90,7 +90,7 @@ minetest.register_chatcommand("groups_remove", {
 
         usergroups:save()
 
-        return true, "Users in "..group..": "..users_to_string(groups[group])
+        return true, "Users in "..group..": "..indexes_to_string(groups[group])
     end
 })
 
@@ -109,7 +109,7 @@ minetest.register_chatcommand("groups_list_users", {
             return false, "Group "..group.."does not exist!"
         end
 
-        return true, "Users in "..group..": "..users_to_string(groups[group])
+        return true, "Users in "..group..": "..indexes_to_string(groups[group])
     end
 })
 
@@ -124,7 +124,7 @@ minetest.register_chatcommand("groups_list", {
             return false, "No groups available"
         end
 
-        return true, "Available groups: "..users_to_string(groups)
+        return true, "Available groups: "..indexes_to_string(groups)
     end
 })
 
