@@ -23,7 +23,7 @@ minetest.register_chatcommand("usergroups_add", {
     description = "Add a user to a group",
     privs = {["server"] = true},
     func = function(name, param)
-        local group, user = param:match('^(%S)%s(%S)$')
+        local group, user = param:match('^(%S+)%s(%S+)$')
 
         if not group then
             return false, "No group specified"
