@@ -26,6 +26,10 @@ Removes a user from a group.
 
 All `usergroups` data should be accessed via the global `usergroups` table.
 
+### `usergroups:get_groups()`
+
+Returns an array-like table of all existing groups.
+
 ### `usergroups:get_users(group)`
 
 Returns an array-like table of users that belong to the given group.

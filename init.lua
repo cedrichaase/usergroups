@@ -40,6 +40,14 @@ function usergroups:load()
     file:close()
 end
 
+function usergroups:get_groups()
+  local gr = {}
+  for group, _ in pairs(groups) do
+    table.insert(gr, group)
+  end
+  return gr
+end
+
 function usergroups:get_users(group)
   local users = {}
 
@@ -123,6 +131,11 @@ minetest.register_chatcommand("groups_remove", {
         end
 
         groups[group][user] = nil
+
+        if next(groups[group]) == nil then
+            -- group is empty, delete group
+            groups[group] = nil
+        end
 
         usergroups:save()
 
